@@ -25,6 +25,7 @@ export class SocketServiceProvider {
 
     //Wait for device to be ready to get information about it.
     this.plt.ready().then(() => {
+
       this.uuid=this.device.uuid
       if(this.uuid == null){
         this.uuid = "NoIdPresent";
