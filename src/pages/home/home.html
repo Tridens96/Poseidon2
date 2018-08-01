@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Poseidon
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding >
+    <ion-list>
+      <ion-list-header style="color:white;">
+        Create new Account
+      </ion-list-header>
+      <ion-item>
+        <ion-input type="text" placeholder="Insert Invite Code" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button full default (click)="setupConnection()">Create Account</button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="margin-top:15%;">
+      <ion-list-header style="color:white;">
+        Login into existing Account
+      </ion-list-header>
+      <ion-item>
+        <ion-input type="text" placeholder="Vorname.Nachname" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button full default>Login</button>
+      </ion-item>
+    </ion-list>
+
+
+</ion-content>
