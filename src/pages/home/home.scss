@@ -10,3 +10,10 @@ ion-item{
   background-color: #FFFFFF !important;
 
 }
+//Error Toast
+.error{
+  > div{
+    background-color: #B61515 !important;
+    font-weight: bold;
+  }
+}

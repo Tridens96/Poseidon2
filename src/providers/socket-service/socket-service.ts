@@ -29,7 +29,6 @@ export class SocketServiceProvider {
 
 
   identifyDevice(){
-
     //Wait for the device to be ready to get information about it.
     this.plt.ready().then(() => {
 
@@ -52,5 +51,13 @@ export class SocketServiceProvider {
         // });
 
     });
+  }
+
+  getPlayerBy(token, callback){
+    let data = {'token':token};
+      this.socket.emit('getPlayerInfo', data);
+      this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+        callback(responsedata);
+      });
   }
 }

@@ -12,16 +12,16 @@
         Create new Account
       </ion-list-header>
       <ion-item>
-        <ion-input type="text" placeholder="Insert Invite Code" value=""></ion-input>
+        <ion-input type="text" clearInput=true placeholder="Insert Invite Code" [(ngModel)]="inviteToken"></ion-input>
       </ion-item>
       <ion-item>
-        <button ion-button full default (click)="enableBackgroundMode()">Create Account</button>
+        <button ion-button full default (click)="getPlayerByToken()">Create Account</button>
       </ion-item>
     </ion-list>
 
     <ion-list style="margin-top:15%;">
       <ion-list-header style="color:white;">
-        Login into existing Account s
+        Login into existing Account {{test}}
       </ion-list-header>
       <ion-item>
         <ion-input type="text" placeholder="Vorname.Nachname" value=""></ion-input>
