@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SocketServiceProvider } from '../../providers/socket-service/socket-service';
 
+
 /**
  * Generated class for the GenerateTokenPage page.
  *
@@ -42,10 +43,12 @@ export class GenerateTokenPage {
         this.socketService.createPlayer(newPlayer);
       }
     })
-
+//TODO: der soll irgendwann mal ins clipboard
     console.log(this.token);
 
   }
+
+
 
 
 

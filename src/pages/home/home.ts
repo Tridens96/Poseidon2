@@ -49,17 +49,19 @@ export class HomePage {
   }
   //hier weiter
   async login(){
-  console.log("clicked");
-    if(this.username != "" && this.password!=""){
+    if(this.username != ""  && this.password!="" && this.username.includes(".")){
       let data = await this.socketService.getPlayerByLogin(this.username);
-      console.log(data);
-      console.log(Md5.hashStr(this.password) +" =="+ data[0].password);
+      if(typeof data[0] != "undefined"){
+        console.log(Md5.hashStr(this.password) +" =="+ data[0].password);
         if(Md5.hashStr(this.password) === data[0].password){
           console.log("dring");
           this.navCtrl.push("AtriumPage", {'player':data[0]});
         }else{
           this.presentToast("Wrong password!");
         }
+      }
+    }else{
+      this.presentToast("Please provide requiered fields!");
     }
   }
 
