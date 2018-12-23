@@ -1,0 +1,29 @@
+<!--
+  Generated template for the AtriumPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <!--TODO: disable hardware backbutton -->
+  <ion-toolbar hideBackButton="true">
+    <ion-title>Poseidon</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  	<h1>Willkommen bei Poseidon "{{player?.nickname}}" </h1>
+    <div class="buttonGroup">
+      <button ion-button full default >Create New Game</button>
+      <button ion-button full default >Join Game</button>
+      <button ion-button full default *ngIf="isCreator()">Edit Tasks</button>
+    </div>
+</ion-content>

@@ -46,6 +46,10 @@ $background-color: map-get($colors, stdBackground);
 $background-ios-color: map-get($colors, stdBackground);
 $background-md-color: map-get($colors, stdBackground);
 
+$toggle-ios-background-color-off: #e6e2e2;
+$toggle-md-track-background-color-off: #e6e2e2;
+$toggle-wp-track-background-color-off: #e6e2e2;
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

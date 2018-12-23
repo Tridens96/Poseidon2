@@ -4,19 +4,23 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Device } from '@ionic-native/device';
+import { ViewController } from 'ionic-angular';
 
 
-
+import { MgmtPopoverComponent } from '../components/mgmt-popover/mgmt-popover';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { SocketServiceProvider } from '../providers/socket-service/socket-service';
+
+
 const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} };
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    MgmtPopoverComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,8 @@ const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} 
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    MgmtPopoverComponent,
   ],
   providers: [
     StatusBar,
@@ -34,7 +39,10 @@ const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} 
     Device,
     SocketServiceProvider,
     SocketIoModule,
+    
+
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+
 
   ]
 })

@@ -15,7 +15,7 @@ import { Platform } from 'ionic-angular';
 @Injectable()
 export class SocketServiceProvider {
 
-   private uuid: String;
+   private uuid: String = "";
 
   constructor(public socket: Socket, public device: Device, public plt: Platform) {
     //listen to be asked to register/identify my self
@@ -53,11 +53,55 @@ export class SocketServiceProvider {
     });
   }
 
+//####################### Database API ################################
   getPlayerBy(token, callback){
     let data = {'token':token};
-      this.socket.emit('getPlayerInfo', data);
-      this.socket.on('getPlayerInfoResponse', (responsedata)=>{
-        callback(responsedata);
-      });
+    this.socket.emit('getPlayerInfo', data);
+    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+      callback(responsedata);
+    });
+
   }
+
+  getPlayerById(id,callback){
+    let data = {'player_id':id};
+    this.socket.emit('getPlayerInfo', data);
+    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+      callback(responsedata);
+    });
+
+  }
+
+  getPlayerByLogin(login,callback){
+    let data = {'login':login};
+    this.socket.emit('getPlayerInfo', data);
+    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+      callback(responsedata);
+    });
+
+  }
+
+  getPlayerByDeviceUUID(uuid, callback){
+    let data = {'uuid':uuid};
+    this.socket.emit('getPlayerInfo', data);
+    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+      callback(responsedata);
+    });
+  }
+
+  updatePlayer(player){
+    this.socket.emit('updatePlayer',player);
+  }
+
+  createPlayer(newplayer){
+    this.socket.emit('createPlayer', newplayer);
+  }
+
+  getDeviceUUID(){
+    if(this.uuid == ""){
+      this.uuid = this.device.uuid;
+    }
+    return this.uuid;
+  }
+
 }

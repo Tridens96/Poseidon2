@@ -24,13 +24,13 @@
         Login into existing Account {{test}}
       </ion-list-header>
       <ion-item>
-        <ion-input type="text" placeholder="Vorname.Nachname" value=""></ion-input>
+        <ion-input type="text" placeholder="Vorname.Nachname" [(ngModel)]="username"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Password" value=""></ion-input>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
       </ion-item>
       <ion-item>
-        <button ion-button full default>Login</button>
+        <button ion-button full default (click)="login()">Login</button>
       </ion-item>
     </ion-list>
 

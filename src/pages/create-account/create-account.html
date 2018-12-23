@@ -6,13 +6,61 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>createAccount</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-title>Poseidon</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <h1>Willkommen: create an Account</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">Nickname:</ion-label>
+      <ion-input type="text" readonly=true value='"{{player?.nickname}}"' ></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header style="color:white;">
+      Complete Account infomration
+    </ion-list-header>
+    <ion-item>
+      <ion-label color="primary">Vorname:</ion-label>
+      <ion-input required type="text" [(ngModel)]="player.firstname" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Nachname:</ion-label>
+      <ion-input required type="text" [(ngModel)]="player.lastname" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Geburtsdatum:</ion-label>
+      <ion-datetime required displayFormat="DD/MM/YYYY" max="2000-00-00" min="1985-00-00" [(ngModel)]="player.birthday"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Geschlecht</ion-label>
+      <ion-select required [(ngModel)]="player.sex">
+        <ion-option value="m">Männlich</ion-option>
+        <ion-option value="f">Weiblich</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header style="color:white;">
+      Set a Password:
+    </ion-list-header>
+    <ion-item >
+      <ion-input type="password" (ionBlur)="validatePassword()" placeholder="Passwort" [(ngModel)]="player.password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" (ionBlur)="validatePassword()" placeholder="Passwort wiederholen" [(ngModel)]="password2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Angemeldet bleiben</ion-label>
+      <ion-toggle [(ngModel)]="keepLoggedIn" (ionChange)="keepLoggedInSwap()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <button ion-button full default (click)="createAccount()">Create Account</button>
+  </ion-list>
 </ion-content>
