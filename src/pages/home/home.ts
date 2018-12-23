@@ -29,7 +29,7 @@ export class HomePage {
     console.log(this.socketService.getDeviceUUID());
     this.socketService.getPlayerByDeviceUUID(this.socketService.getDeviceUUID(), (responsedata) => {
       if(responsedata.length == 1) {
-        this.navCtrl.setRoot("AtriumPage", {'player':responsedata[0]});
+      //  this.navCtrl.setRoot("AtriumPage", {'player':responsedata[0]});
       }
     });
   }
@@ -44,20 +44,22 @@ export class HomePage {
         }
       });
     }else{
-      this.presentToast("Invite token required to create an account!").present();
+      this.presentToast("Invite token required to create an account!");
     }
   }
   //hier weiter
-  login(){
+  async login(){
   console.log("clicked");
     if(this.username != "" && this.password!=""){
-      this.socketService.getPlayerByLogin(this.username, (data) => {
-        if(Md5.hashStr(this.password) == data[0].password){
+      let data = await this.socketService.getPlayerByLogin(this.username);
+      console.log(data);
+      console.log(Md5.hashStr(this.password) +" =="+ data[0].password);
+        if(Md5.hashStr(this.password) === data[0].password){
+          console.log("dring");
           this.navCtrl.push("AtriumPage", {'player':data[0]});
         }else{
-          this.presentToast("Wrong password!").present();
+          this.presentToast("Wrong password!");
         }
-      });
     }
   }
 
@@ -68,9 +70,7 @@ export class HomePage {
         position: 'top',
         cssClass: "error"
       });
-
-
-    return toast;
+      toast.present();
   }
 
 

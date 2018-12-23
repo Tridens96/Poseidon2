@@ -72,13 +72,14 @@ export class SocketServiceProvider {
 
   }
 
-  getPlayerByLogin(login,callback){
+  async getPlayerByLogin(login){
     let data = {'login':login};
-    this.socket.emit('getPlayerInfo', data);
-    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
-      callback(responsedata);
+    return new Promise((resolve, reject)=>{
+      this.socket.emit('getPlayerInfo', data);
+      this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+        resolve(responsedata);
+      });
     });
-
   }
 
   getPlayerByDeviceUUID(uuid, callback){

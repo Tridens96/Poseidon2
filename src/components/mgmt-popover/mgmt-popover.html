@@ -1,7 +1,7 @@
 <!-- Generated template for the MgmtPopoverComponent component -->
 
     <ion-list>
-      <ion-list-header>Poseidon</ion-list-header>
+      <ion-list-header>{{player?.nickname}}</ion-list-header>
       <button ion-item><ion-icon name="settings"></ion-icon> Edit Account</button>
       <button ion-item *ngIf="isAdmin" (click)="presentModal()"><ion-icon name="person-add"></ion-icon> Invite Player</button>
 

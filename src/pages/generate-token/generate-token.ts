@@ -17,7 +17,7 @@ import { SocketServiceProvider } from '../../providers/socket-service/socket-ser
 export class GenerateTokenPage {
   private player_id;
   private nickname: String = "";
-  private token: String;
+  private token: String = "";
   private tokenSource = "abcdefghijklmnopqrstuvqxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider) {
     this.player_id = this.navParams.get('player_id');
@@ -28,22 +28,22 @@ export class GenerateTokenPage {
   }
 
   generateToken(){
-    var token = "";
+    this.token = "";
     //62 chars
     for(let i = 0; i<7;i++){
-      token = token + this.tokenSource.charAt(Math.random()*61);
+      this.token = this.token + this.tokenSource.charAt(Math.random()*61);
     }
-    this.socketService.getPlayerBy(token,(data) =>{
+    this.socketService.getPlayerBy(this.token,(data) =>{
       if(data.length>0){
-        console.log("Token ["+token+"] is already in use. Try to create a new Token - RECURSIVE call!")
+        console.log("Token ["+this.token+"] is already in use. Try to create a new Token - RECURSIVE call!")
         this.generateToken();
       }else{
-        let newPlayer = {'inviteToken' : token, 'nickname' : this.nickname, 'invitedBy' : this.player_id};
+        let newPlayer = {'inviteToken' : this.token, 'nickname' : this.nickname, 'invitedBy' : this.player_id};
         this.socketService.createPlayer(newPlayer);
       }
     })
 
-    console.log(token);
+    console.log(this.token);
 
   }
 
