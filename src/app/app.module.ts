@@ -39,7 +39,7 @@ const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} 
     Device,
     SocketServiceProvider,
     SocketIoModule,
-    
+
 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 

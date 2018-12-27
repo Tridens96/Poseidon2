@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SocketServiceProvider } from '../../providers/socket-service/socket-service';
-
+import { ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the GenerateTokenPage page.
@@ -12,7 +12,7 @@ import { SocketServiceProvider } from '../../providers/socket-service/socket-ser
 
 @IonicPage()
 @Component({
-  selector: 'page-generate-token',
+  selector: 'generate-token',
   templateUrl: 'generate-token.html',
 })
 export class GenerateTokenPage {
@@ -20,32 +20,38 @@ export class GenerateTokenPage {
   private nickname: String = "";
   private token: String = "";
   private tokenSource = "abcdefghijklmnopqrstuvqxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider, public viewCtrl: ViewController,) {
     this.player_id = this.navParams.get('player_id');
+    console.log("instantiated modal !!!");
   }
 
   closeModal(){
     this.navCtrl.pop();
   }
-
+  //LÖSUNG: es liegt entweder am async oder am socket denn die alert unten funtioniert.
   generateToken(){
     this.token = "";
-    //62 chars
+    //62 chars (index: 0-61)
     for(let i = 0; i<7;i++){
       this.token = this.token + this.tokenSource.charAt(Math.random()*61);
     }
-    this.socketService.getPlayerBy(this.token,(data) =>{
-      if(data.length>0){
-        console.log("Token ["+this.token+"] is already in use. Try to create a new Token - RECURSIVE call!")
+    this.socketService.getPlayerBy(this.token,null).then((data) =>{
+      if(data!="{}" && data.length>0){
+        console.log("Token ["+this.token+"] is already in use. Tring to create a new Token - RECURSIVE call!")
         this.generateToken();
       }else{
         let newPlayer = {'inviteToken' : this.token, 'nickname' : this.nickname, 'invitedBy' : this.player_id};
+        console.log("HAAAALLLLLLLLLLLOOOOOO");
         this.socketService.createPlayer(newPlayer);
-      }
-    })
-//TODO: der soll irgendwann mal ins clipboard
-    console.log(this.token);
+        //TODO: der soll irgendwann mal ins clipboard
+        console.log(this.token);
 
+      }
+    });
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 

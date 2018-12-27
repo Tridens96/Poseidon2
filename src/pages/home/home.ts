@@ -26,7 +26,7 @@ export class HomePage {
   }
 
   checkIfDeviceIsRegistered(){
-    console.log(this.socketService.getDeviceUUID());
+    console.log("check for:"+ this.socketService.getDeviceUUID()+ " wheter it is registerd");
     this.socketService.getPlayerByDeviceUUID(this.socketService.getDeviceUUID(), (responsedata) => {
       if(responsedata.length == 1) {
       //  this.navCtrl.setRoot("AtriumPage", {'player':responsedata[0]});

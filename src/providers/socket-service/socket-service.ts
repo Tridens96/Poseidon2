@@ -7,15 +7,15 @@ import { Platform } from 'ionic-angular';
 
 
 /*
-  Generated class for the SocketServiceProvider provider.
+Generated class for the SocketServiceProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
+See https://angular.io/guide/dependency-injection for more info on providers
+and Angular DI.
 */
 @Injectable()
 export class SocketServiceProvider {
 
-   private uuid: String = "";
+  private uuid: String = "";
 
   constructor(public socket: Socket, public device: Device, public plt: Platform) {
     //listen to be asked to register/identify my self
@@ -36,31 +36,39 @@ export class SocketServiceProvider {
       if(this.uuid == null){
         this.uuid = "NoIdPresent";
       }
-        let registrationData = {
-          "device_uuid": this.uuid,
-        }
-        this.socket.emit('register', registrationData);
-        console.log('Device has identified as: {'+this.uuid+'}');
+      let registrationData = {
+        "device_uuid": this.uuid,
+      }
+      this.socket.emit('register', registrationData);
+      console.log('Device has identified as: {'+this.uuid+'}');
 
-        // this.plt.pause.subscribe(() => {
-        //   console.log('[INFO] App paused');
-        // });
-        //
-        // this.plt.resume.subscribe(() => {
-        //   console.log('[INFO] App resumed');
-        // });
+      // this.plt.pause.subscribe(() => {
+      //   console.log('[INFO] App paused');
+      // });
+      //
+      // this.plt.resume.subscribe(() => {
+      //   console.log('[INFO] App resumed');
+      // });
 
     });
   }
 
-//####################### Database API ################################
-  getPlayerBy(token, callback){
+  //####################### Database API ################################
+  async getPlayerBy(token, callback){
     let data = {'token':token};
     this.socket.emit('getPlayerInfo', data);
-    this.socket.on('getPlayerInfoResponse', (responsedata)=>{
-      callback(responsedata);
-    });
-
+    if(callback == null){
+      return new Promise((resolve, reject)=>{
+        this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+          resolve(responsedata);
+        });
+      });
+    }else{
+      //legacy code - better work with promises TODO: Remove 
+      this.socket.on('getPlayerInfoResponse', (responsedata)=>{
+        callback(responsedata);
+      });
+    }
   }
 
   getPlayerById(id,callback){
