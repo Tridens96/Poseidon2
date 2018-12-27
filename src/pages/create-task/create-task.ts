@@ -14,12 +14,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create-task.html',
 })
 export class CreateTaskPage {
-
+  private player:String;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateTaskPage');
   }
-
+  backButtonClick(){
+    this.navCtrl.pop();
+  }
+  presentPopover(myEvent) {
+    alert("This route is not implemented by now");
+    // let popover = this.popoverCtrl.create(MgmtPopoverComponent,{'isAdmin': this.isAdmin(), 'player': this.player});
+    // popover.present({
+    //   ev: myEvent
+    // });
+  }
 }

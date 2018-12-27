@@ -22,7 +22,6 @@ export class GenerateTokenPage {
   private tokenSource = "abcdefghijklmnopqrstuvqxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider, public viewCtrl: ViewController,) {
     this.player_id = this.navParams.get('player_id');
-    console.log("instantiated modal !!!");
   }
 
   closeModal(){
@@ -41,7 +40,6 @@ export class GenerateTokenPage {
         this.generateToken();
       }else{
         let newPlayer = {'inviteToken' : this.token, 'nickname' : this.nickname, 'invitedBy' : this.player_id};
-        console.log("HAAAALLLLLLLLLLLOOOOOO");
         this.socketService.createPlayer(newPlayer);
         //TODO: der soll irgendwann mal ins clipboard
         console.log(this.token);

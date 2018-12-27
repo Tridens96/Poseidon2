@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <!--TODO: disable hardware backbutton -->
-  <ion-toolbar hideBackButton="true">
+  <ion-toolbar hideBackButton="false">
     <ion-title>Poseidon</ion-title>
 
     <ion-buttons end>
@@ -24,6 +24,6 @@
     <div class="buttonGroup">
       <button ion-button full default >Create New Game</button>
       <button ion-button full default >Join Game</button>
-      <button ion-button full default *ngIf="isCreator()">Edit Tasks</button>
+      <button ion-button full default *ngIf="isCreator()" (click)="push('CreateTaskPage')">Edit Tasks</button>
     </div>
 </ion-content>

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { PopoverController } from 'ionic-angular';
 import { MgmtPopoverComponent } from '../../components/mgmt-popover/mgmt-popover';
+
+import {CreateTaskPage} from '../create-task/create-task';
 /**
  * Generated class for the AtriumPage page.
  *
@@ -23,7 +25,9 @@ export class AtriumPage {
   }
 
 
-
+  push(page){
+    this.navCtrl.push(page);
+  }
 
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(MgmtPopoverComponent,{'isAdmin': this.isAdmin(), 'player': this.player});
