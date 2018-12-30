@@ -4,6 +4,7 @@ import { SocketServiceProvider } from '../../providers/socket-service/socket-ser
 import { ToastController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
 import { Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
@@ -16,7 +17,7 @@ export class HomePage {
   private username = ""; //firstname.lastname
   private password = "";
 
-  constructor(public navCtrl: NavController, public socketService: SocketServiceProvider, private toastCtrl: ToastController, public device: Device, public platform: Platform) {
+  constructor(public navCtrl: NavController, public socketService: SocketServiceProvider, private toastCtrl: ToastController, public device: Device, public platform: Platform, private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -54,8 +55,9 @@ export class HomePage {
       if(typeof data[0] != "undefined"){
         console.log(Md5.hashStr(this.password) +" =="+ data[0].password);
         if(Md5.hashStr(this.password) === data[0].password){
-          console.log("dring");
-          this.navCtrl.push("AtriumPage", {'player':data[0]});
+          console.log("password correct. Logging in")
+          this.storage.set('player', data[0]);
+          this.navCtrl.setRoot("AtriumPage", {'player':data[0]});
         }else{
           this.presentToast("Wrong password!");
         }

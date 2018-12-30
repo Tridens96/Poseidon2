@@ -64,7 +64,7 @@ export class SocketServiceProvider {
         });
       });
     }else{
-      //legacy code - better work with promises TODO: Remove 
+      //legacy code - better work with promises TODO: Remove
       this.socket.on('getPlayerInfoResponse', (responsedata)=>{
         callback(responsedata);
       });
@@ -104,6 +104,10 @@ export class SocketServiceProvider {
 
   createPlayer(newplayer){
     this.socket.emit('createPlayer', newplayer);
+  }
+
+  createTask(task){
+      this.socket.emit('createTask', task);
   }
 
   getDeviceUUID(){

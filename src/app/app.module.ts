@@ -12,7 +12,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { SocketServiceProvider } from '../providers/socket-service/socket-service';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} };
 
@@ -25,7 +25,8 @@ const config: SocketIoConfig = { url: 'http://192.168.178.38:3001', options: {} 
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

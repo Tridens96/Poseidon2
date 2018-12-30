@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { SocketServiceProvider } from '../../providers/socket-service/socket-service';
 import { PopoverController } from 'ionic-angular';
 import { MgmtPopoverComponent } from '../../components/mgmt-popover/mgmt-popover';
 
@@ -20,7 +20,7 @@ import {CreateTaskPage} from '../create-task/create-task';
 export class AtriumPage {
   private player: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public socketService: SocketServiceProvider) {
     this.player = this.navParams.get('player');
   }
 

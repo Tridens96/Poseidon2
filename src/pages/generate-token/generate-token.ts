@@ -41,9 +41,8 @@ export class GenerateTokenPage {
       }else{
         let newPlayer = {'inviteToken' : this.token, 'nickname' : this.nickname, 'invitedBy' : this.player_id};
         this.socketService.createPlayer(newPlayer);
-        //TODO: der soll irgendwann mal ins clipboard
+        // TODO:  der soll irgendwann mal ins clipboard + Errorhandling
         console.log(this.token);
-
       }
     });
   }
