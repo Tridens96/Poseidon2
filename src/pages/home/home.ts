@@ -18,6 +18,11 @@ export class HomePage {
   private password = "";
 
   constructor(public navCtrl: NavController, public socketService: SocketServiceProvider, private toastCtrl: ToastController, public device: Device, public platform: Platform, private storage: Storage) {
+    this.storage.get('player').then((player)=>{
+      if(player != null){
+        this.storage.remove('player');
+      }
+    });
   }
 
   ionViewDidLoad() {

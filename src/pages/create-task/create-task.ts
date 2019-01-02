@@ -22,6 +22,8 @@ import { AlertController } from 'ionic-angular';
 export class CreateTaskPage {
   private player:String;
 
+  private sideText = "Erstelle einen Aufgabe/Frage ";
+  private actionText = "Create";
   private task:any = {
     content: "",
     level: "",
@@ -29,12 +31,25 @@ export class CreateTaskPage {
     cat: "",
     fuer: "b",
   }
+  private readOnly = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public popoverCtrl: PopoverController, private toastCtrl: ToastController, public socketService: SocketServiceProvider, private alertCtrl: AlertController) {
     this.storage.get('player').then((val) => {
       this.player = val;
-      console.log(this.player);
     });
+    if(this.navParams.get('task')!=null){
+      this.task=this.navParams.get('task');
+
+      if(this.navParams.get('edit')==true){
+
+        this.sideText = "Update Task";
+        this.readOnly = false;
+        this.actionText = "Update";
+      }else{
+        this.sideText = "Watch Task (readonly)";
+        this.readOnly = true;
+      }
+    }
   }
 
   ionViewDidLoad() {
@@ -47,7 +62,11 @@ export class CreateTaskPage {
 
   validateAndCreateTask(){
     if(this.checkRequiredFields()){
-      this.socketService.createTask(this.task);
+      if(this.actionText == "Update"){
+        this.socketService.updateTask(this.task);
+      }else{
+        this.socketService.createTask(this.task);
+      }
       this.navCtrl.pop();
     }
   }
@@ -150,7 +169,7 @@ export class CreateTaskPage {
     });
 
     alert.present();
-}
+  }
 
 
   // MENUE : _____________________________________

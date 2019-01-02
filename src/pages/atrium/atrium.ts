@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SocketServiceProvider } from '../../providers/socket-service/socket-service';
 import { PopoverController } from 'ionic-angular';
 import { MgmtPopoverComponent } from '../../components/mgmt-popover/mgmt-popover';
-
+import { Storage } from '@ionic/storage';
 import {CreateTaskPage} from '../create-task/create-task';
+import {TaskListPage} from '../task-list/task-list';
 /**
  * Generated class for the AtriumPage page.
  *
@@ -20,8 +21,11 @@ import {CreateTaskPage} from '../create-task/create-task';
 export class AtriumPage {
   private player: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public socketService: SocketServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public socketService: SocketServiceProvider, private storage: Storage) {
     this.player = this.navParams.get('player');
+    this.storage.get('player').then((val) => {
+      this.player = val;
+    });
   }
 
 

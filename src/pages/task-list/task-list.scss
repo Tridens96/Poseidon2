@@ -1,0 +1,9 @@
+page-task-list {
+  .heading	{
+    border: none !important;
+    color:#478aff;
+    font-size: 3vh;
+    font-weight: bold;
+    background-color: map-get($colors, stdBackground) !important;
+  }
+}

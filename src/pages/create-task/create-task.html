@@ -24,26 +24,26 @@ Ionic pages and navigation.
 
 
 <ion-content padding>
-  <h1>Erstelle einen Aufgabe/Frage </h1>
+  <h1>{{sideText}}</h1>
   <div>
     <ion-label class="heading">Description</ion-label>
-    <ion-textarea class="taskInput" placeholder="Enter a text for the task or the question" [(ngModel)]="task.content"></ion-textarea>
+    <ion-textarea class="taskInput" placeholder="Enter a text for the task or the question" [(ngModel)]="task.content" disabled={{readOnly}}></ion-textarea>
     <ion-icon name="information-circle" style="color: white; font-size: 5vh" (click)="showInfo()"></ion-icon>
-    <button class="addButton" ion-button (click)="addWildCard()">add random</button>
+    <button class="addButton" *ngIf='!readOnly' ion-button (click)="addWildCard()">add random</button>
   </div>
 
   <ion-list  style="margin-top: 10vh;" >
     <ion-list-header class="heading">Options</ion-list-header>
   <ion-item class="taskOptions">
     <ion-label style="color: white">Category</ion-label>
-    <ion-select [(ngModel)]="task.cat">
+    <ion-select [(ngModel)]="task.cat" disabled={{readOnly}}>
       <ion-option value="1">CAT1</ion-option>
       <ion-option value="2">CAT2</ion-option>
     </ion-select>
   </ion-item>
   <ion-item class="taskOptions">
     <ion-label style="color: white">Question for:</ion-label>
-    <ion-select [(ngModel)]="task.fuer">
+    <ion-select [(ngModel)]="task.fuer" disabled={{readOnly}}>
       <ion-option selected value="b">both</ion-option>
       <ion-option value="m">only Male</ion-option>
       <ion-option value="f">only Female</ion-option>
@@ -51,12 +51,12 @@ Ionic pages and navigation.
   </ion-item>
   <ion-item class="taskOptions">
     <ion-label style="color: white">Level</ion-label>
-    <ion-input type="number" placeholder="1-10" [min]="1" [max]="10" [(ngModel)]="task.level"></ion-input>
+    <ion-input type="number" placeholder="1-10" [min]="1" [max]="10" [(ngModel)]="task.level" disabled={{readOnly}}></ion-input>
   </ion-item>
   <ion-item class="taskOptions">
     <ion-label style="color: white">Points</ion-label>
-    <ion-input type="number" placeholder="0-100" [min]="0" [max]="100" [(ngModel)]="task.points"></ion-input>
+    <ion-input type="number" placeholder="0-100" [min]="0" [max]="100" [(ngModel)]="task.points" disabled={{readOnly}}></ion-input>
   </ion-item>
-    <button ion-button full default (click)="validateAndCreateTask()">Create</button>
+    <button ion-button full default (click)="validateAndCreateTask()" *ngIf='!readOnly'>{{actionText}}</button>
   </ion-list>
 </ion-content>

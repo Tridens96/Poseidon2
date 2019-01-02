@@ -61,12 +61,14 @@ export class SocketServiceProvider {
       return new Promise((resolve, reject)=>{
         this.socket.on('getPlayerInfoResponse', (responsedata)=>{
           resolve(responsedata);
+          this.socket.removeListener('getPlayerInfoResponse');
         });
       });
     }else{
       //legacy code - better work with promises TODO: Remove
       this.socket.on('getPlayerInfoResponse', (responsedata)=>{
         callback(responsedata);
+        this.socket.removeListener('getPlayerInfoResponse');
       });
     }
   }
@@ -76,6 +78,7 @@ export class SocketServiceProvider {
     this.socket.emit('getPlayerInfo', data);
     this.socket.on('getPlayerInfoResponse', (responsedata)=>{
       callback(responsedata);
+      this.socket.removeListener('getPlayerInfoResponse');
     });
 
   }
@@ -86,6 +89,7 @@ export class SocketServiceProvider {
       this.socket.emit('getPlayerInfo', data);
       this.socket.on('getPlayerInfoResponse', (responsedata)=>{
         resolve(responsedata);
+        this.socket.removeListener('getPlayerInfoResponse');
       });
     });
   }
@@ -95,6 +99,7 @@ export class SocketServiceProvider {
     this.socket.emit('getPlayerInfo', data);
     this.socket.on('getPlayerInfoResponse', (responsedata)=>{
       callback(responsedata);
+      this.socket.removeListener('getPlayerInfoResponse');
     });
   }
 
@@ -107,8 +112,21 @@ export class SocketServiceProvider {
   }
 
   createTask(task){
-      this.socket.emit('createTask', task);
+    this.socket.emit('createTask', task);
   }
+  updateTask(task){
+    this.socket.emit('updateTask', task);
+  }
+  async getTasks(whereClause){
+    this.socket.emit('getTasks', whereClause);
+    return new Promise((resolve, reject)=>{
+      this.socket.on('getTaskResponse', (responsedata)=>{
+        resolve(responsedata);
+        this.socket.removeListener('getTaskResponse');
+      });
+    });
+  }
+
 
   getDeviceUUID(){
     if(this.uuid == ""){

@@ -4,6 +4,7 @@ import { SocketServiceProvider } from '../../providers/socket-service/socket-ser
 import { ToastController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
 import {Md5} from 'ts-md5/dist/md5';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the CreateAccountPage page.
  *
@@ -32,13 +33,15 @@ export class CreateAccountPage {
   private password2: String ='';
   private keepLoggedIn: boolean = false;
   private passwordIsHashed = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider, private toastCtrl: ToastController, public device: Device) {
+  private oldPassword:String = "";
+  constructor(public navCtrl: NavController, public navParams: NavParams, public socketService: SocketServiceProvider, private toastCtrl: ToastController, public device: Device, private storage: Storage) {
   }
 
   ionViewDidLoad() {
     this.player = this.navParams.get('player');
     if(this.player.password != ''){
       this.passwordIsHashed = true;
+      this.oldPassword = this.player.password;
     }
   }
   ionViewWillLeave() {
@@ -99,12 +102,14 @@ export class CreateAccountPage {
 
   createAccount(){
       if((this.validateInputsNotEmpty()==true) && (this.validatePassword()==true)){
+      //Decide what to do with the password to prevent double hashing:
       if(this.passwordIsHashed==false){
-        //TODD: PROBLEM: es sitz´tz noch ein altes password drin
-        console.log("hased"+ this.passwordIsHashed);
         this.player.password = Md5.hashStr(this.player.password);
-      }
+      }else if(this.passwordIsHashed == true && this.player.password != this.oldPassword){
+        this.player.password = Md5.hashStr(this.player.password);
+      }//else keep old password and do not hash it again...
       this.socketService.updatePlayer(this.player);
+      this.storage.set('player', this.player);
       this.navCtrl.setRoot("AtriumPage", {'player':this.player});
     }else{
       this.presentToast("Some Error").present();

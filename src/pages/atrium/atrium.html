@@ -24,6 +24,7 @@
     <div class="buttonGroup">
       <button ion-button full default >Create New Game</button>
       <button ion-button full default >Join Game</button>
-      <button ion-button full default *ngIf="isCreator()" (click)="push('CreateTaskPage')">Edit Tasks</button>
+      <button ion-button full default *ngIf="isCreator()" (click)="push('TaskListPage')">All Tasks</button>
+      <button ion-button full default *ngIf="isCreator()" (click)="push('CreateTaskPage')">Create new Task</button>
     </div>
 </ion-content>

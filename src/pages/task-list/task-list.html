@@ -1,0 +1,47 @@
+<!--
+Generated template for the TaskListPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Poseidon "{{player?.nickname}}"</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="backButtonClick()">
+        <ion-icon name="backspace"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list  style="" >
+    <ion-list-header class="heading">All Tasks</ion-list-header>
+    <ion-item-sliding *ngFor="let task of tasks">
+      <ion-item class="taskOptions" >
+        <h2>{{task.content.substring(0,32)+"..."}}</h2>
+        <span style="color: grey; font-size: 2vh">Cat: {{task.cat}}  /  Level: {{task.level}}  /  Points: {{task.points}}</span>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button style="background-color:#488aff;" (click)="watchTask(task);">
+          <ion-icon name="eye"></ion-icon>
+            watch
+        </button>
+        <button ion-button style="background-color:#32db64;" (click)='editTask(task)'>
+          <ion-icon name="create"></ion-icon>
+            &nbsp; edit &nbsp;
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
